@@ -24,6 +24,7 @@ jobs:
      # - checkout
       
      steps:
+      - checkout
       - run:
           name: Save test results 
           command: |
