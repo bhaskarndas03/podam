@@ -17,7 +17,7 @@ jobs:
     working_directory: ~/repo
     general:
         artifacts:
-         #- $CIRCLE_TEST_REPORTS
+          - $CIRCLE_TEST_REPORTS
           - target
 
     environment:
@@ -35,14 +35,7 @@ jobs:
           - v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run:
-          name: Running X virtual framebuffer
-          command: Xvfb :0 -ac &
-
-      - run:
-          name: Run Tests
-          command: |
-            export DISPLAY=:99
+      
 
       - run: mvn dependency:go-offline
 
@@ -53,13 +46,14 @@ jobs:
         
       # run tests!
       #- run: mvn integration-test
-      - mkdir  target/surefire-reports
+      
       - run: mvn test
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
       - store_artifacts:
-          path: target/surefire-reports
+          path: $CIRCLE_TEST_REPORTS/junit/
           #destination: tr1
       - store_test_results:
-          path: target/surefire-reports
+          path: $CIRCLE_TEST_REPORTS/junit/
      
    # test:
     #  override:
