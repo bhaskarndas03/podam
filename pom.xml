@@ -228,9 +228,12 @@
 				<version>3.3</version>
 			</plugin>
 			<plugin>
-				<groupId>com.github.github</groupId>
+				<!--<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>0.12</version>
+				<version>0.12</version>-->
+				<groupId>org.eclipse.mylyn.github</groupId>
+				<artifactId>org.eclipse.egit.github.core</artifactId>
+				<version>2.1.5</version>
 				<configuration>
 					<message>Creating site for ${project.version}</message>
 				</configuration>
@@ -326,7 +329,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.19</version>
 				<configuration>
-					<skip>true</skip>
+					<!--<skip>true</skip>-->
 				</configuration>
 			</plugin>
 			<plugin>
