@@ -1,22 +1,15 @@
 machine:
-  timezone:
-    America/Los_Angeles
-  java:
-    version:
-      oraclejdk8
-  environment:
-    TERM: dumb
+  ruby:
+    version: rbx-2.2.6
 
 general:
-  branches:
-    only:
-      - master # only build/deploy from master
-  artifacts:
-    - "build/reports/tests" # preserve the generated HTML test reports
-
+   artifacts:
+     - $CIRCLE_TEST_REPORTS
+     - target
+     
 test:
   override:
-    - ./gradlew test -is
+    - mvn clean install
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    - find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
