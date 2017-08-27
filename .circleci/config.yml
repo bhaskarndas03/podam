@@ -44,7 +44,7 @@ jobs:
           command: |
             export DISPLAY=:99
 
-      #- run: mvn dependency:go-offline
+      - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
