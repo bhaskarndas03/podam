@@ -55,12 +55,12 @@ jobs:
       #- store_test_results:
        #   path: $CIRCLE_TEST_REPORTS/junit/
      
-    test:
-      override:
-       - mvn clean install #package
-      post:
-       - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-       - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    #test:
+     # override:
+     #  - mvn clean install #package
+     # post:
+     #  - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+     #  - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
        - store_test_results:
             path: /tmp/test-results
        - store_artifacts:
