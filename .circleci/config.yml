@@ -26,22 +26,19 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                echo resetting cache on master
+              rm -rf _build
+          fi
 
       - run: gradle dependencies
 
       - save_cache:
       
           paths:
-         #   - ~/.m2
-         # key: v1-dependencies-{{ checksum "build.gradle" }}
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                echo resetting cache on master
-              rm -rf _build
-          fi
+           - ~/.m2
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+          
         
       # run tests!
       - run: gradle test
