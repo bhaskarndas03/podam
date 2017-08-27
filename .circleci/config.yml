@@ -26,10 +26,8 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                echo resetting cache on master
-              rm -rf _build
-          fi
+          key: deps
+      condition: $CIRCLE_BRANCH != "master"
 
       - run: gradle dependencies
 
