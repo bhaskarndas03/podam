@@ -49,18 +49,18 @@ jobs:
       
      # - run: mvn test
       
-      - store_artifacts:
-          path: /tmp/artifacts
+      #- store_artifacts:
+       #   path: /tmp/artifacts
           #destination: tr1
-      - store_test_results:
+      #- store_test_results:
           path: /tmp/test-results
      
-    #test:
-     # override:
-     #  - mvn clean install #package
-     # post:
-     #  - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-     #  - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    test:
+      override:
+       - mvn clean install #package
+      post:
+       - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+       - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
      #  - store_test_results:
      #       path: /tmp/test-results
      #  - store_artifacts:
