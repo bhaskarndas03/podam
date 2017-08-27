@@ -34,9 +34,14 @@ jobs:
       - run: gradle dependencies
 
       - save_cache:
+      
           paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+         #   - ~/.m2
+         # key: v1-dependencies-{{ checksum "build.gradle" }}
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                echo resetting cache on master
+              rm -rf _build
+          fi
         
       # run tests!
       - run: gradle test
