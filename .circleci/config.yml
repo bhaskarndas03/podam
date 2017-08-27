@@ -14,7 +14,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    working_directory: ~/repo
+    working_directory: ~/podam
 
     environment:
       # Customize the JVM maximum heap limit
@@ -30,8 +30,13 @@ jobs:
       condition: $CIRCLE_BRANCH != "master"
 
       - run: gradle dependencies
-
-      - save_cache:
+     dependencies:
+        pre:
+          - mkdir ~/my_cache_dir
+    # now add files and directories to the above directory
+      cache_directories:
+        - "~/my_cache_dir"
+         - save_cache:
       
           paths:
            - ~/.m2
