@@ -15,6 +15,10 @@ jobs:
       # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
+    general:
+        artifacts:
+          - $CIRCLE_TEST_REPORTS
+          - target
 
     environment:
       # Customize the JVM maximum heap limit
@@ -41,11 +45,8 @@ jobs:
         
       # run tests!
       #- run: mvn integration-test
-      general:
-        artifacts:
-          - $CIRCLE_TEST_REPORTS
-          - target
-    test:
+     
+    -test:
       override:
        - mvn clean package
       post:
