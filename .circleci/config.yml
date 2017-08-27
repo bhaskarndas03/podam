@@ -53,9 +53,9 @@ jobs:
         
       # run tests!
       #- run: mvn integration-test
+      - mkdir -p target/surefire-reports
       - run: mvn test
       - store_artifacts:
-       - mkdir -p target/surefire-reports
           path: target/surefire-reports
           #destination: tr1
       - store_test_results:
