@@ -15,10 +15,10 @@ jobs:
       # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
-    general:
-        artifacts:
-          - $CIRCLE_TEST_REPORTS
-          - target
+    #general:
+        #artifacts:
+         #- $CIRCLE_TEST_REPORTS
+         # - target
 
     environment:
       # Customize the JVM maximum heap limit
@@ -35,8 +35,16 @@ jobs:
           - v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+      - run:
+          name: Running X virtual framebuffer
+          command: Xvfb :0 -ac &
 
-      - run: mvn dependency:go-offline
+      - run:
+          name: Run Tests
+          command: |
+            export DISPLAY=:99
+
+      #- run: mvn dependency:go-offline
 
       - save_cache:
           paths:
@@ -45,11 +53,17 @@ jobs:
         
       # run tests!
       #- run: mvn integration-test
+      -run: mvn test
+      - store_artifacts:
+          path: target/surefire-reports
+          destination: tr1
+      - store_test_results:
+          path: target/surefire-reports
      
-    test:
-      override:
-       - mvn clean package
-      post:
-       - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-       - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+   # test:
+    #  override:
+     #  - mvn clean package
+     # post:
+     #  - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      # - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
