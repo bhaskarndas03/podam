@@ -66,4 +66,4 @@ jobs:
      #  - store_artifacts:
      #       path: /tmp/artifacts
      
-     bundle exec fastlane scan --output_types junit --output_directory "$CIRCLE_TEST_REPORTS"
+     
