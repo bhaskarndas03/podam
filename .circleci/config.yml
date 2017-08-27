@@ -46,7 +46,7 @@ jobs:
       # run tests!
       #- run: mvn integration-test
      
-    -test:
+    test:
       override:
        - mvn clean package
       post:
